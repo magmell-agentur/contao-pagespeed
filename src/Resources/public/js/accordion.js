@@ -11,7 +11,6 @@
             activate: function (event, ui) {
                 ui.newHeader.addClass('active');
                 ui.oldHeader.removeClass('active');
-                $.fn.matchHeight._update();
             }
         });
     });

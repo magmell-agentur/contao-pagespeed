@@ -1,0 +1,8 @@
+<?php
+
+// Stylesheets
+$GLOBALS['TL_CSS'][] = 'assets/colorbox/css/colorbox.min.css|static';
+
+// Javascript
+$GLOBALS['TL_JAVASCRIPT'][] = 'assets/colorbox/js/colorbox.min.js|static';
+$GLOBALS['TL_JAVASCRIPT'][] = 'bundles/contaopagespeed/js/colorbox.js|static';
