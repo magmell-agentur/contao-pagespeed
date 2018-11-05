@@ -1,0 +1,35 @@
+{
+    "name": "magmell-agentur/contao-pagespeed",
+    "description": "Pagespeed optimization elements and logic for the Contao 4 CMS",
+    "type": "contao-bundle",
+    "authors": [
+        {
+            "name": "Markus Milkereit",
+            "email": "markus.milkereit@magmell.de",
+            "role": "Developer"
+        },
+        {
+            "name": "Marko Todić",
+            "email": "drexplosiveweb@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {},
+    "extra": {
+        "contao-manager-plugin": "Magmell\\Contao\\PageSpeed\\ContaoManager\\Plugin"
+    },
+    "autoload": {
+        "psr-4": {
+            "Magmell\\Contao\\PageSpeed\\": "src"
+        },
+        "classmap": [
+            "src/Resources/contao/"
+        ],
+        "exclude-from-classmap": [
+            "src/Resources/contao/config/",
+            "src/Resources/contao/dca/",
+            "src/Resources/contao/languages/",
+            "src/Resources/contao/templates/"
+        ]
+    }
+}
