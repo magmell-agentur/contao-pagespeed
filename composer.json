@@ -2,6 +2,7 @@
     "name": "magmell-agentur/contao-pagespeed",
     "description": "Pagespeed optimization elements and logic for the Contao 4 CMS",
     "type": "contao-bundle",
+    "license": "LGPL-3.0-or-later",
     "authors": [
         {
             "name": "Markus Milkereit",
