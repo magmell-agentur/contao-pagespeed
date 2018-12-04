@@ -28,7 +28,17 @@ class FrontendTemplateHook
                         continue 2;
                     }
                 }
-                $strHeadContent .= sprintf("\"%s\"%s", str_replace('|static', '', $strScriptFile), ($strScriptFile !== end($GLOBALS['TL_JAVASCRIPT'])) ? ',' : '');
+
+                $strScriptFile = str_replace('|static', '', $strScriptFile);
+                $strVersionedScriptFile = "";
+
+                $strFilePath = TL_ROOT . "/web/" . $strScriptFile;
+
+                if (file_exists($strFilePath)) {
+                    $strVersionedScriptFile = $strScriptFile . "?v=" . filemtime($strFilePath);
+                }
+
+                $strHeadContent .= sprintf("\"%s\"%s", $strVersionedScriptFile ?: $strScriptFile, ($strScriptFile !== end($GLOBALS['TL_JAVASCRIPT'])) ? ',' : '');
             }
 
             $strHeadContent .= '])</script>';
