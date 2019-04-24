@@ -16,7 +16,6 @@ class DynamicScriptTagsHook
 		$blnCombineScripts = ($objLayout === null) ? false : $objLayout->combineScripts;
 		$strScripts = '';
 		$objCombiner = new Combiner();
-
 		// Add the CSS framework style sheets
 		if (!empty($GLOBALS['TL_FRAMEWORK_CSS']) && \is_array($GLOBALS['TL_FRAMEWORK_CSS']))
 		{
@@ -31,9 +30,12 @@ class DynamicScriptTagsHook
 		{
 			foreach (array_unique($GLOBALS['TL_CSS']) as $stylesheet)
 			{
-				$options = StringUtil::resolveFlaggedUrl($stylesheet);
+                $options = StringUtil::resolveFlaggedUrl($stylesheet);
 
-				if ($options->static)
+                // Delete if compiled css file is outdated so recompiling can happen automatically afterwards
+                $this->deleteOutdatedCompiled($stylesheet);
+
+                if ($options->static)
 				{
 					$objCombiner->add($stylesheet, $options->mtime, $options->media);
 				}
@@ -88,6 +90,25 @@ class DynamicScriptTagsHook
     }
 
     /**
+     * Delete outdated compiled css files
+     * @param string $stylesheet
+     */
+    protected function deleteOutdatedCompiled($stylesheet)
+    {
+        if (strpos($stylesheet, 'bundles') === 0
+            && pathinfo($stylesheet, PATHINFO_EXTENSION) === 'scss'
+        ) {
+            $strCompiledFile = TL_ROOT . '/assets/css/' . str_replace('/', '_', ('web/' . $stylesheet . '.css'));
+
+            if (file_exists($strCompiledFile)
+                && (filemtime($strCompiledFile) < filemtime(TL_ROOT . '/web/' . $stylesheet))
+            ) {
+                unlink($strCompiledFile);
+            }
+        }
+    }
+
+    /**
      * @param string $href
      * @param string|null $media
      * @return string Style tag
@@ -95,7 +116,6 @@ class DynamicScriptTagsHook
     public static function generateVersionedStyleTag($href, $media = null)
     {
         $strFilePath = TL_ROOT . "/web/" . $href;
-        $strFileLastModificationTimestamp = false;
         if (file_exists($strFilePath)) {
             if ($strFileLastModificationTimestamp = filemtime($strFilePath)) {
                 $href .= "?v=" . $strFileLastModificationTimestamp;
