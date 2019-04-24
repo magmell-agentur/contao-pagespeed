@@ -3,6 +3,7 @@
 namespace Magmell\Contao\PageSpeed\Hooks;
 
 use Contao\Combiner;
+use Contao\Config;
 use Contao\Controller;
 use Contao\LayoutModel;
 use Contao\StringUtil;
@@ -11,6 +12,10 @@ class DynamicScriptTagsHook
 {
     public function replaceCss($strBuffer)
     {
+        if (!Config::get('enableCssVersioning')) {
+            return $strBuffer;
+        }
+
         global $objPage;
 		$objLayout = LayoutModel::findByPk($objPage->layoutId);
 		$blnCombineScripts = ($objLayout === null) ? false : $objLayout->combineScripts;

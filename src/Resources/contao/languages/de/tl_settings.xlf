@@ -1,0 +1,22 @@
+<?xml version="1.0" ?><xliff version="1.1">
+    <file datatype="php" original="src/Resources/contao/languages/en/tl_settings.php" source-language="en" target-language="de">
+        <body>
+            <trans-unit id="tl_settings.loadJavascriptAsynchronously.0">
+                <source>Load Javascript Asynchronously</source>
+                <target>Load Javascript Asynchronously</target>
+            </trans-unit>
+            <trans-unit id="tl_settings.loadJavascriptAsynchronously.1">
+                <source>Load javascript files asynchronously, but also add timestamp query parameter so browser caching is avoided for new file versions</source>
+                <target>Load javascript files asynchronously, but also add timestamp query parameter so browser caching is avoided for new file versions</target>
+            </trans-unit>
+            <trans-unit id="tl_settings.enableCssVersioning.1">
+                <source>Version CSS files</source>
+                <target>Version CSS files</target>
+            </trans-unit>
+            <trans-unit id="tl_settings.enableCssVersioning.1">
+                <source>Force recompiling on scss file update, but also add timestamp query parameter so browser caching is avoided for new file versions</source>
+                <target>Force recompiling on scss file update, but also add timestamp query parameter so browser caching is avoided for new file versions</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

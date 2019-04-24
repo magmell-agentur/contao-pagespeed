@@ -2,10 +2,16 @@
 
 namespace Magmell\Contao\PageSpeed\Hooks;
 
+use Contao\Config;
+
 class FrontendTemplateHook
 {
     public function replaceHeadTag($strBuffer)
     {
+        if (!Config::get('loadJavascriptAsynchronously')) {
+            return $strBuffer;
+        }
+
         // Eigene Verarbeitung von allem was wirklich in den Kopf gehört (siehe Controller 874ff)
         $strHeadContent = '';
         if (!empty($GLOBALS['TL_HEAD']) && is_array($GLOBALS['TL_HEAD'])) {
