@@ -58,6 +58,9 @@ class DynamicScriptTagsHook
 			{
 				$options = StringUtil::resolveFlaggedUrl($stylesheet);
 
+                // Delete if compiled css file is outdated so recompiling can happen automatically afterwards
+                $this->deleteOutdatedCompiled($stylesheet);
+
 				if ($options->static)
 				{
 					$objCombiner->add($stylesheet, $options->mtime, $options->media);
@@ -100,13 +103,12 @@ class DynamicScriptTagsHook
      */
     protected function deleteOutdatedCompiled($stylesheet)
     {
-        if (strpos($stylesheet, 'bundles') === 0
-            && pathinfo($stylesheet, PATHINFO_EXTENSION) === 'scss'
-        ) {
-            $strCompiledFile = TL_ROOT . '/assets/css/' . str_replace('/', '_', ('web/' . $stylesheet . '.css'));
+        if (pathinfo($stylesheet, PATHINFO_EXTENSION) === 'scss'|| pathinfo($stylesheet, PATHINFO_EXTENSION) === 'less')
+        {
+            $strCompiledFile = TL_ROOT . '/assets/css/' . str_replace('/', '_', ((strpos($stylesheet, 'bundles') === 0 ? 'web_' : '') . $stylesheet . '.css'));
 
             if (file_exists($strCompiledFile)
-                && (filemtime($strCompiledFile) < filemtime(TL_ROOT . '/web/' . $stylesheet))
+                && (filemtime($strCompiledFile) < filemtime(TL_ROOT . '/' . (strpos($stylesheet, 'files') === 0 ? '' : 'web/') . $stylesheet))
             ) {
                 unlink($strCompiledFile);
             }
