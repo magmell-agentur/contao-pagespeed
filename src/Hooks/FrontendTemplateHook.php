@@ -29,6 +29,7 @@ class FrontendTemplateHook
 			$arrExceptions = array();
             // $arrExceptions = ["https://maps.googleapis.com/maps/api/js", "https://maps.google.com/maps/api"];
 
+			$GLOBALS['TL_JAVASCRIPT'] = array_unique($GLOBALS['TL_JAVASCRIPT']);
             foreach ($GLOBALS['TL_JAVASCRIPT'] as $strScriptFile) {
                 foreach ($arrExceptions as $strException) {
                     if (strpos($strScriptFile, $strException) !== false) {
