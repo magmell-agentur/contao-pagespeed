@@ -103,7 +103,7 @@ class DynamicScriptTagsHook
      */
     protected function deleteOutdatedCompiled($stylesheet)
     {
-        if (pathinfo($stylesheet, PATHINFO_EXTENSION) === 'scss'|| pathinfo($stylesheet, PATHINFO_EXTENSION) === 'less')
+        if (pathinfo($stylesheet, PATHINFO_EXTENSION) === 'scss' || pathinfo($stylesheet, PATHINFO_EXTENSION) === 'less')
         {
             $strCompiledFile = TL_ROOT . '/assets/css/' . str_replace('/', '_', ((strpos($stylesheet, 'bundles') === 0 ? 'web_' : '') . $stylesheet . '.css'));
 
