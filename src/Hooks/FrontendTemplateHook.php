@@ -21,6 +21,9 @@ class FrontendTemplateHook
         }
 
         if (!empty($GLOBALS['TL_JAVASCRIPT']) && is_array($GLOBALS['TL_JAVASCRIPT'])) {
+            // remove duplicates
+            $GLOBALS['TL_JAVASCRIPT'] = array_unique($GLOBALS['TL_JAVASCRIPT']);
+            
             // dynamically loads all JS files asynchronously
             // @see https://www.html5rocks.com/en/tutorials/speed/script-loading/
             $strHeadContent .= "<script>!function(e,t,r){function n(){for(;d[0]&&\"loaded\"==d[0][f];)c=d.shift(),c[o]=!i.parentNode.insertBefore(c,i)}for(var s,a,c,d=[],i=e.scripts[0],o=\"onreadystatechange\",f=\"readyState\";s=r.shift();)a=e.createElement(t),\"async\"in i?(a.async=!1,e.head.appendChild(a)):i[f]?(d.push(a),a[o]=n):e.write(\"<\"+t+' src=\"'+s+'\" defer></'+t+\">\"),a.src=s}(document,\"script\",[";
